@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<h3 class="mb-3">Available Books</h3>
+
+<form method="GET" class="row g-2 mb-4">
+    <div class="col-md-10">
+        <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Search by title or author"
+            value="{{ request.args.get('search','') }}"
+        >
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">Search</button>
+    </div>
+</form>
+
+<div class="row">
+{% for book in books %}
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <p class="card-text text-muted">by {{ book.author }}</p>
+
+                <p>
+                    <strong>₹{{ book.price }}</strong><br>
+                    Stock: {{ book.quantity }}
+                </p>
+
+                <a href="{{ url_for('user.add_to_cart', book_id=book.id) }}"
+                   class="btn btn-success w-100">
+                    Add to Cart
+                </a>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <p class="text-center fw-bold">No books found.</p>
+{% endfor %}
+</div>
+
+{% endblock %}

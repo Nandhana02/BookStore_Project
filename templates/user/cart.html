@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+
+<h3>Your Cart</h3>
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Book</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for item in cart_items %}
+        <tr>
+            <td>{{ item.book.title }}</td>
+            <td>₹{{ item.book.price }}</td>
+            <td>{{ item.quantity }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<h5>Total: ₹{{ total }}</h5>
+
+<a href="{{ url_for('user.checkout') }}" class="btn btn-primary mt-2">
+    Checkout
+</a>
+
+{% endblock %}
